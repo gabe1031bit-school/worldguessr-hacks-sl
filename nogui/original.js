@@ -7,8 +7,8 @@
     const url = new URL(src)
     const cords = url.searchParams.get('location')
     const maps = `www.google.com/maps/place/${cords}`
-    const data = await fetch(`https://coords-to-country.vercel.app/api?l=${cords}`).then(r => r.json())
-    const comf = window.confirm(`Cheat Ran Successfully!\nCoordinates: ${encodeURI(cords)}\nCountry: ${data['Country']}\n\nWould You Like To Open Google Maps In Another Window?`)
+    const data = await fetch(`https://coords-to-country.vercel.app/api?l=${cords}`).then(r => r.json()).catch(_ => null)
+    const comf = window.confirm(`Cheat Ran Successfully!\nCoordinates: ${encodeURI(cords)}\nCountry: ${data ? data['Country'] : 'Couldnt Fetch Country'}\n\nWould You Like To Open Google Maps In Another Window?`)
     if(comf) window.open('https://'+maps)
   } catch(er) {
     window.alert(er.message)  
